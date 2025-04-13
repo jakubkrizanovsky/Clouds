@@ -5,28 +5,35 @@ namespace Clouds.Simulation
 	public class CloudGrid
 	{
     	public readonly Vector3Int Dimensions;
+		private readonly float _initHumProb;
+		private readonly float _initActProb;
+
 		private CloudCell[,,] _cells;
 		private CloudCell[,,] _nextCells;
 
-        public CloudGrid(Vector3Int dimensions) {
+        public CloudGrid(Vector3Int dimensions, float initHumProb, float initActProb) {
             Dimensions = dimensions;
+			_initHumProb = initHumProb;
+			_initActProb = initActProb;
+			
 			_cells = new CloudCell[dimensions.x, dimensions.y, dimensions.z];
 			_nextCells = new CloudCell[dimensions.x, dimensions.y, dimensions.z];
 
 			for(int x = 0; x < Dimensions.x; x++) {
 				for(int y = 0; y < Dimensions.y; y++) {
 					for(int z = 0; z < Dimensions.z; z++) {
-						_cells[x, y, z] = CreateCell(x, y, z);
+						_cells[x, y, z] = CreateCell();
 					}
 				}
 			}
         }
 
-		private CloudCell CreateCell(int x, int y, int z) {
+		private CloudCell CreateCell() {
+			bool hum = Random.Range(0f, 1f) < _initHumProb;
 			CloudCell cell = new(
-				Random.Range(0f, 1f) > 0.5f,
-				Random.Range(0f, 1f) > 0.5f,
-				Random.Range(0f, 1f) > 0.5f
+				hum,
+				act: !hum && Random.Range(0f, 1f) < _initActProb,
+				cld: false
 			);
 
 			return cell;
