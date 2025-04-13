@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridScale: 0.1
+  _tickDuration: 1
   _drawGrid: 0
 --- !u!4 &663930594
 Transform:

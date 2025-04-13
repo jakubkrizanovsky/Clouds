@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Clouds.Simulation
@@ -8,12 +9,23 @@ namespace Clouds.Simulation
 		private float _gridScale;
 
 		[SerializeField]
+		private float _tickDuration;
+
+		[SerializeField]
 		private bool _drawGrid = false;
 
 		private CloudGrid _grid;
 
 		private void Start() {
 			_grid = new CloudGrid(CalculateGridDimesions());
+			StartCoroutine(TickSimulation_Coroutine());
+		}
+
+		private IEnumerator TickSimulation_Coroutine() {
+			while(true) {
+				yield return new WaitForSeconds(_tickDuration);
+				_grid.Update();
+			}
 		}
 
 		private Vector3Int CalculateGridDimesions() {
@@ -55,7 +67,7 @@ namespace Clouds.Simulation
 				for(int y = 0; y < _grid.Dimensions.y; y++) {
 					for(int z = 0; z < _grid.Dimensions.z; z++) {
 						CloudCell cell = _grid.GetCell(x, y, z);
-						if(cell.cld) {
+						if(cell.Cld) {
 							Vector3 cellPosition = CalculateCellCenter(x, y, z, _grid.Dimensions);
 							Gizmos.DrawCube(cellPosition, _gridScale * Vector3.one);
 						}
