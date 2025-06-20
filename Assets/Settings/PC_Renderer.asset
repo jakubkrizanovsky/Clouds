@@ -102,4 +102,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   _renderPassEvent: 300
-  _cloudsMaterial: {fileID: -876546973899608171, guid: 9695953d39cf34e2da32336f21a0a34d, type: 3}
+  _cloudsMaterial: {fileID: 2100000, guid: e817b777b644543f5bb826591c2acd4c, type: 2}

@@ -31,10 +31,9 @@ public class CloudsRendererFeature : ScriptableRendererFeature
 
             TextureDesc destinationDesc = renderGraph.GetTextureDesc(source);
             destinationDesc.name = $"CameraColor-{_passName}";
-            destinationDesc.clearBuffer = false;
+            // destinationDesc.clearBuffer = true;
 
             TextureHandle destination = renderGraph.CreateTexture(destinationDesc);
-
             BlitMaterialParameters blitParameters = new(source, destination, _blitMaterial, 0);
             renderGraph.AddBlitPass(blitParameters, passName: _passName);
 
