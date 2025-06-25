@@ -46,6 +46,8 @@ public class CloudsRendererFeature : ScriptableRendererFeature
 
     [SerializeField]
     private Material _cloudsMaterial;
+    public Material MaterialInstance => _cloudsMaterial; //TODO
+    //public Material MaterialInstance {get; private set;}
 
     private CloudsRenderPass _scriptablePass;
 
@@ -54,6 +56,7 @@ public class CloudsRendererFeature : ScriptableRendererFeature
     {
         _scriptablePass = new();
         _scriptablePass.renderPassEvent = _renderPassEvent;
+        //MaterialInstance = new Material(_cloudsMaterial);
     }
 
     // Here you can inject one or multiple render passes in the renderer.

@@ -34,6 +34,10 @@ namespace Clouds.Simulation
 		private void Update() {
 			if(_renderer != null) {
 				_renderer.Render(_grid, _gridScale);
+				
+#if UNITY_EDITOR
+				_renderer.UpdateDimensions(this);
+#endif
 			}
 		}
 

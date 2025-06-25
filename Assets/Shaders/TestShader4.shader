@@ -4,6 +4,8 @@ Shader "Unlit/TestShader4"
     {
         _BoundsMin("Bounds Min", Vector) = (0, 0, 0)
         _BoundsMax("Bounds Max", Vector) = (1, 1, 1)
+        _NumSteps("Number of Steps", Integer) = 3
+        _TestDensity("Test Density", Float) = 0.1
     }
 
     SubShader
@@ -17,6 +19,8 @@ Shader "Unlit/TestShader4"
         CBUFFER_START(UnityPerMaterial)
             float3 _BoundsMin;
             float3 _BoundsMax;
+            int _NumSteps;
+            float _TestDensity;
         CBUFFER_END
 
         TEXTURE2D_X(_BlitTexture);
@@ -82,6 +86,10 @@ Shader "Unlit/TestShader4"
                 return float2(dstToBox, dstInsideBox);
             }
 
+            float sampleDensity(float3 position) {
+                return _TestDensity;
+            }
+
             float4 frag(v2f input) : SV_Target
             {
                 float4 col = SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_BlitTexture, input.uv);
@@ -89,18 +97,26 @@ Shader "Unlit/TestShader4"
                 float depth = LinearEyeDepth(rawDepth, _ZBufferParams);
 
                 float3 rayOrigin = _WorldSpaceCameraPos;
+                float3 rayDir = normalize(input.viewVector);
                 float3 invRayDir = 1 / input.viewVector;    
 
                 float2 rayBoxInfo = rayBoxDst(_BoundsMin, _BoundsMax, rayOrigin, invRayDir);
                 float dstToBox = rayBoxInfo.x;
                 float dstInsideBox = rayBoxInfo.y;
 
-                bool rayHitBox = dstInsideBox > 0 && dstToBox < depth;
-                if (rayHitBox) {
-                    col = 0;
+                float dstTravelled = 0;
+                float dstLimit = min(depth - dstToBox, dstInsideBox);
+                float stepSize = dstLimit / _NumSteps;
+
+                float totalDensity = 0;
+                while(dstTravelled < dstLimit) {
+                    float3 rayPos = rayOrigin + rayDir * (dstToBox + dstTravelled);
+                    totalDensity += sampleDensity(rayPos) * dstTravelled;
+                    dstTravelled += stepSize;
                 }
-                
-                return col;
+
+                float transmittance = exp(-totalDensity);                
+                return col * transmittance;
             }
 
             ENDHLSL
