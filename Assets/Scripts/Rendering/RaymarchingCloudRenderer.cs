@@ -7,9 +7,24 @@ namespace Clouds.Rendering
     {
         [SerializeField]
         private CloudsRendererFeature _cloudsRendererFeature;
+
+        private Texture3D _texture;
         
         public override void Render(CloudGrid cloudGrid, float gridScale) {
-            //TODO
+            if(_texture == null) {
+                _texture = new Texture3D(cloudGrid.Dimensions.x, cloudGrid.Dimensions.y, 
+                        cloudGrid.Dimensions.z, TextureFormat.RGBA32, false);
+                _cloudsRendererFeature.MaterialInstance.SetTexture("_WorleyNoiseTexture", _texture);
+            }
+            
+            for(int i = 0; i < cloudGrid.Dimensions.x; i++) {
+                for(int j = 0; j < cloudGrid.Dimensions.y; j++) {
+                    for(int k = 0; k < cloudGrid.Dimensions.z; k++) {
+                        _texture.SetPixel(i, j, k, cloudGrid.GetCell(i, j, k).Cld ? Color.white : Color.black);
+                    }
+                }
+            }
+            _texture.Apply();
         }
 
         public override void UpdateDimensions(CloudBox cloudBox) {

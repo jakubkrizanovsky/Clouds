@@ -96,10 +96,15 @@ Shader "Unlit/TestShader5"
             }
 
             float sampleDensity(float3 position) {
-                //return _TestDensity;
-                float3 relPosition = inverseLerp(_BoundsMin, _BoundsMax, position) / _NoiseScale;
+                float3 relPosition = inverseLerp(_BoundsMin, _BoundsMax, position);
                 float4 value = tex3Dlod(_WorleyNoiseTexture, float4(relPosition, 0));
+                return value.r;
                 return 0.25 * (value.r + value.g + value.b + value.a);
+            }
+
+            float4 sample(float3 position) {
+                float3 relPosition = inverseLerp(_BoundsMin, _BoundsMax, position);
+                return tex3Dlod(_WorleyNoiseTexture, float4(relPosition, 0));
             }
 
             float4 frag(v2f input) : SV_Target
@@ -109,8 +114,8 @@ Shader "Unlit/TestShader5"
                 float depth = LinearEyeDepth(rawDepth, _ZBufferParams);
 
                 float3 rayOrigin = _WorldSpaceCameraPos;
-                float3 rayDir = normalize(input.viewVector);
-                float3 invRayDir = 1 / input.viewVector;    
+                float3 rayDir = input.viewVector;
+                float3 invRayDir = 1 / rayDir;    
 
                 float2 rayBoxInfo = rayBoxDst(_BoundsMin, _BoundsMax, rayOrigin, invRayDir);
                 float dstToBox = rayBoxInfo.x;
@@ -120,12 +125,12 @@ Shader "Unlit/TestShader5"
 
                 float dstTravelled = 0;
                 float dstLimit = min(depth - dstToBox, dstInsideBox);
-                float stepSize = dstLimit / _NumSteps;
+                float stepSize = dstLimit / (_NumSteps + 1);
 
                 float totalDensity = 0;
-                while(dstTravelled < dstLimit) {
+                while(dstTravelled < dstLimit - stepSize) {
                     float3 rayPos = rayOrigin + rayDir * (dstToBox + dstTravelled);
-                    totalDensity += sampleDensity(rayPos).x * dstTravelled;
+                    totalDensity += sampleDensity(rayPos).x * stepSize;
                     dstTravelled += stepSize;
                 }
 

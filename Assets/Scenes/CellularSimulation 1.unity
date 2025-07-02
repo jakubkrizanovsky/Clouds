@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.12059035, y: 0.37940884, z: -0.049950052, w: 0.9159759}
+  m_LocalPosition: {x: -10, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 45, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 663930594}
   - component: {fileID: 663930593}
   - component: {fileID: 663930595}
+  - component: {fileID: 663930596}
   m_Layer: 0
   m_Name: CloudBox
   m_TagString: Untagged
@@ -407,10 +408,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031dee87163854c238c78721702ef97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridScale: 0.1
+  _gridScale: 1
   _tickDuration: 1
   _initHumProb: 0.3
-  _initActProb: 0.0001
+  _initActProb: 0.01
   _renderer: {fileID: 663930595}
   _drawGrid: 0
 --- !u!4 &663930594
@@ -423,7 +424,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 5, z: 10}
+  m_LocalScale: {x: 30, y: 10, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -441,6 +442,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cloudsRendererFeature: {fileID: 8049438716854628302, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
+--- !u!114 &663930596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663930592}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76e87a65bade44689787fa5225a307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _material: {fileID: 2100000, guid: 37ed52780206c4afa991cfe6f0bbdacb, type: 2}
+  _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ namespace Clouds.Simulation
 
 		private void Start() {
 			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb);
+			_renderer.UpdateDimensions(this);
 			StartCoroutine(TickSimulation_Coroutine());
 		}
 
