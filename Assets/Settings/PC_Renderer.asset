@@ -15,21 +15,6 @@ MonoBehaviour:
   m_Active: 0
   _renderPassEvent: 400
   _cloudsMaterial: {fileID: 2100000, guid: 3722343c4a4b9424781a4b012ff43eaa, type: 2}
---- !u!114 &-8420728374893362151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 235f0c8099b9d42f2a2cac0f64e6891d, type: 3}
-  m_Name: SGRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  _renderPassEvent: 300
-  _cloudsMaterial: {fileID: -876546973899608171, guid: 9695953d39cf34e2da32336f21a0a34d, type: 3}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +43,7 @@ MonoBehaviour:
   - {fileID: 7833122117494664109}
   - {fileID: 8049438716854628302}
   - {fileID: -8819264395904881028}
-  - {fileID: -8420728374893362151}
-  m_RendererFeatureMap: ad6b866f10d7b46cce6f657fdd59b56f7ceed625c2ad9b8519c46d702890238b
+  m_RendererFeatureMap: ad6b866f10d7b46cce6f657fdd59b56f7ceed625c2ad9b85
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}

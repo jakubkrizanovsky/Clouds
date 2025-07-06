@@ -10,11 +10,13 @@ namespace Clouds.Rendering
         private CloudsRendererFeature _cloudsRendererFeature;
 
         private Texture3D _texture;
+        private Texture3D _oldTexture;
         
         public override void Render(CloudGrid cloudGrid, float gridScale) {
             if(_texture == null) {                
                 _texture = new Texture3D(cloudGrid.Dimensions.x, cloudGrid.Dimensions.y, 
                         cloudGrid.Dimensions.z, TextureFormat.R8, false);
+                _oldTexture = _cloudsRendererFeature.MaterialInstance.GetTexture("_NoiseTexture") as Texture3D;
                 _cloudsRendererFeature.MaterialInstance.SetTexture("_NoiseTexture", _texture);
             }
             
@@ -34,6 +36,10 @@ namespace Clouds.Rendering
             
             _cloudsRendererFeature.MaterialInstance.SetVector("_BoundsMin", boundsMin);
             _cloudsRendererFeature.MaterialInstance.SetVector("_BoundsMax", boundsMax);
+        }
+
+        private void OnDisable() {
+            _cloudsRendererFeature.MaterialInstance.SetTexture("_NoiseTexture", _oldTexture);
         }
     }
 }
