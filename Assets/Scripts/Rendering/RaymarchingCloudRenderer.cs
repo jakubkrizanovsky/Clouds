@@ -1,4 +1,5 @@
 using Clouds.Simulation;
+using UnityEditor;
 using UnityEngine;
 
 namespace Clouds.Rendering
@@ -11,10 +12,10 @@ namespace Clouds.Rendering
         private Texture3D _texture;
         
         public override void Render(CloudGrid cloudGrid, float gridScale) {
-            if(_texture == null) {
+            if(_texture == null) {                
                 _texture = new Texture3D(cloudGrid.Dimensions.x, cloudGrid.Dimensions.y, 
-                        cloudGrid.Dimensions.z, TextureFormat.RGBA32, false);
-                _cloudsRendererFeature.MaterialInstance.SetTexture("_WorleyNoiseTexture", _texture);
+                        cloudGrid.Dimensions.z, TextureFormat.R8, false);
+                _cloudsRendererFeature.MaterialInstance.SetTexture("_NoiseTexture", _texture);
             }
             
             for(int i = 0; i < cloudGrid.Dimensions.x; i++) {

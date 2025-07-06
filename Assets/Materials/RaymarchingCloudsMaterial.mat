@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RaymarchingCloudsMaterial
-  m_Shader: {fileID: 4800000, guid: 00c184766cbcd47f2adbd1c19aa61d7b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8ff64cd349555418f969559c6f6a6597, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -35,6 +35,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 11700000, guid: cd9b3f7ac4e1543eba79ee701f59acd2, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _WorleyNoise:
         m_Texture: {fileID: 11700000, guid: b54a5dd02ab4848f281eb137dea771ac, type: 2}
         m_Scale: {x: 1, y: 1}
@@ -44,9 +48,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _NumSteps: 3
+    - _NumLightSteps: 3
+    - _NumSteps: 8
     - _TextureDimensions: 128
     m_Floats:
+    - _DarknessThreshold: 0.1
+    - _LightAbsorptionThroughCloud: 0.51
+    - _LightAbsorptionTowardSun: 0.1
     - _NoiseScale: 1
     - _TestDensity: 0.3
     m_Colors:
