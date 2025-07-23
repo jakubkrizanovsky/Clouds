@@ -53,8 +53,8 @@ Material:
     - _TextureDimensions: 128
     m_Floats:
     - _DarknessThreshold: 0.1
-    - _LightAbsorptionThroughCloud: 0.5
-    - _LightAbsorptionTowardSun: 0.1
+    - _LightAbsorptionThroughCloud: 4
+    - _LightAbsorptionTowardSun: 2
     - _NoiseScale: 1
     - _TestDensity: 0.3
     m_Colors:

@@ -10,6 +10,8 @@ Shader "Unlit/CloudsShader"
         _LightAbsorptionTowardSun("Light Absorption Toward Sun", Float) = 1
         _LightAbsorptionThroughCloud("Light Absorption Through Cloud", Float) = 1
         _DarknessThreshold("Darkness Threshold", Float) = 0.1
+        _BlueNoiseTexture("Blue Noise Texture", 2D) = "white" {}
+        _BlueNoiseStrength("Blue Noise Offset Strength", Float) = 1
     }
 
     SubShader
@@ -29,6 +31,7 @@ Shader "Unlit/CloudsShader"
             float _LightAbsorptionTowardSun;
             float _LightAbsorptionThroughCloud;
             float _DarknessThreshold;
+            float _BlueNoiseStrength;
         CBUFFER_END
 
         TEXTURE2D_X(_BlitTexture);
@@ -36,6 +39,9 @@ Shader "Unlit/CloudsShader"
 
         TEXTURE2D(_CameraDepthTexture);
         SAMPLER(sampler_CameraDepthTexture);
+
+        TEXTURE2D(_BlueNoiseTexture);
+        SAMPLER(sampler_BlueNoiseTexture);
 
         struct appdata
         {
@@ -102,7 +108,6 @@ Shader "Unlit/CloudsShader"
                 float3 relPosition = inverseLerp(_BoundsMin, _BoundsMax, position);
                 float4 value = tex3Dlod(_NoiseTexture, float4(relPosition, 0));
                 return value.r;
-                return 0.25 * (value.r + value.g + value.b + value.a);
             }
 
             float lightmarch(float3 position) {
@@ -138,15 +143,22 @@ Shader "Unlit/CloudsShader"
                 if(dstInsideBox <= 0) return col;
 
                 float dstLimit = min(depth - dstToBox, dstInsideBox);
+
+                float boundsSizeY = _BoundsMax.y - _BoundsMin.y;
                 float stepSize = dstLimit / _NumSteps;
-                
+
+                float2 initialPosition = (rayOrigin + rayDir * dstToBox).xz;
+                float noiseVal = SAMPLE_TEXTURE2D(_BlueNoiseTexture, sampler_BlueNoiseTexture, initialPosition).r;
+                stepSize += noiseVal * _BlueNoiseStrength;
+
+                if(stepSize <= 0) stepSize = 1;
+
                 float dstTravelled = 0;
                 float transmittance = 1;
                 float lightEnergy = 0;
-                for(int step = 0; step < _NumLightSteps; step++) {
+                while(dstTravelled < dstLimit) {
                     float3 rayPos = rayOrigin + rayDir * (dstToBox + dstTravelled);
                     float density = sampleDensity(rayPos);
-
 
                     if(density > 0) {
                         float lightTransmittance = lightmarch(rayPos);
@@ -159,11 +171,10 @@ Shader "Unlit/CloudsShader"
                         }
                     }
 
-
                     dstTravelled += stepSize;
                 }
 
-                return col * transmittance + lightEnergy;
+                return col * transmittance + saturate(lightEnergy);
             }
 
             ENDHLSL

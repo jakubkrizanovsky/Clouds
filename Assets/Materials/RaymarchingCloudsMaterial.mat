@@ -31,12 +31,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BlueNoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 6e9dfc4de39df49c58965295e4bfb969, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTexture:
-        m_Texture: {fileID: 11700000, guid: cd9b3f7ac4e1543eba79ee701f59acd2, type: 2}
+        m_Texture: {fileID: 11700000, guid: 2f45e001174ef4b4a82bff75d537f63d, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WorleyNoise:
@@ -48,19 +52,23 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _NumLightSteps: 3
-    - _NumSteps: 8
+    - _NumLightSteps: 5
+    - _NumSteps: 5
+    - _TestStep: 3
     - _TextureDimensions: 128
     m_Floats:
-    - _DarknessThreshold: 0.1
-    - _LightAbsorptionThroughCloud: 0.51
-    - _LightAbsorptionTowardSun: 0.1
+    - _BlueNoiseStrength: 0
+    - _DarknessThreshold: 0.01
+    - _LightAbsorptionThroughCloud: 2
+    - _LightAbsorptionTowardSun: 0.7
     - _NoiseScale: 1
+    - _StepSize: 0.2
     - _TestDensity: 0.3
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BoundsMax: {r: 10, g: 5, b: 10, a: 0}
-    - _BoundsMin: {r: -10, g: 0, b: -10, a: 0}
+    - _BoundsMax: {r: 5, g: 5, b: 5, a: 0}
+    - _BoundsMin: {r: -5, g: -5, b: -5, a: 0}
     - _Color: {r: 0.32549024, g: 1, b: 0.3466864, a: 1}
+    - _TestPosition: {r: 5, g: 1, b: 2.5, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
