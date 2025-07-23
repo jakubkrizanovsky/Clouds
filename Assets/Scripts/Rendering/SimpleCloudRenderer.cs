@@ -5,6 +5,13 @@ namespace Clouds.Rendering
 {
     public class SimpleCloudRenderer : ACloudRenderer
     {
+		enum RenderType {
+			Cld, Hum, Act, Ext
+		}
+
+		[SerializeField]
+		private RenderType _renderType;
+
 		[SerializeField]
 		private Material _material;
 
@@ -18,7 +25,7 @@ namespace Clouds.Rendering
 			for(int x = 0; x < cloudGrid.Dimensions.x; x++) {
 				for(int y = 0; y < cloudGrid.Dimensions.y; y++) {
 					for(int z = 0; z < cloudGrid.Dimensions.z; z++) {
-						if(cloudGrid.GetCell(x, y, z).Cld) {
+						if(ShouldDraw(cloudGrid.GetCell(x, y, z))) {
 							instancesData[i++] = Matrix4x4.TRS(
 									CalculateCellCenter(x, y, z, cloudGrid.Dimensions, gridScale),
 									Quaternion.identity,
@@ -36,5 +43,15 @@ namespace Clouds.Rendering
 			return transform.position + gridScale * new Vector3(x, y, z) 
 					- 0.5f * gridScale * (Vector3)gridDimensions + 0.5f * gridScale * Vector3.one;
 		}
+
+		private bool ShouldDraw(CloudCell cell) {
+            return _renderType switch {
+                RenderType.Cld => cell.Cld,
+                RenderType.Hum => cell.Hum,
+                RenderType.Act => cell.Act,
+                RenderType.Ext => cell.Ext,
+                _ => throw new System.NotImplementedException()
+            };
+        }
     }
 }

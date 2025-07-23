@@ -17,6 +17,9 @@ namespace Clouds.Simulation
 
 		[SerializeField]
 		private float _initActProb = 0.5f;
+		
+		[SerializeField]
+		private float _extProb = 0.01f;
 
 		[SerializeField]
 		private ACloudRenderer _renderer;
@@ -27,7 +30,7 @@ namespace Clouds.Simulation
 		private CloudGrid _grid;
 
 		private void Start() {
-			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb);
+			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb, _extProb);
 			_renderer.UpdateDimensions(this);
 			StartCoroutine(TickSimulation_Coroutine());
 		}
@@ -62,9 +65,6 @@ namespace Clouds.Simulation
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireCube(transform.position, transform.localScale);
 
-			// if(_grid != null)
-			// 	Visualize();
-
 			if(!_drawGrid) return;
 
 			Gizmos.color = Color.yellow;
@@ -81,21 +81,6 @@ namespace Clouds.Simulation
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireCube(transform.position, transform.localScale);
 		}
-
-		// private void Visualize() {
-		// 	Gizmos.color = Color.white;
-		// 	for(int x = 0; x < _grid.Dimensions.x; x++) {
-		// 		for(int y = 0; y < _grid.Dimensions.y; y++) {
-		// 			for(int z = 0; z < _grid.Dimensions.z; z++) {
-		// 				CloudCell cell = _grid.GetCell(x, y, z);
-		// 				if(cell.Cld) {
-		// 					Vector3 cellPosition = CalculateCellCenter(x, y, z, _grid.Dimensions);
-		// 					Gizmos.DrawCube(cellPosition, _gridScale * Vector3.one);
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
 
 		private Vector3 CalculateCellCenter(int x, int y, int z, Vector3Int gridDimensions) {
 			return transform.position + _gridScale * new Vector3(x, y, z) 
