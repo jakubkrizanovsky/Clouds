@@ -27,12 +27,26 @@ namespace Clouds.Simulation
 		[SerializeField]
 		private bool _drawGrid = false;
 
+		private bool _simulationPlaying;
+		public bool SimulationPlaying {get => _simulationPlaying; set {
+			if(_simulationPlaying != value) {
+				_simulationPlaying = value;
+				if(_simulationPlaying) {
+					StartCoroutine(TickSimulation_Coroutine());
+				}
+			}
+		}}
+
 		private CloudGrid _grid;
 
 		private void Start() {
+			ResetSimulation();
+		}
+
+		public void ResetSimulation() {
 			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb, _extProb);
 			_renderer.UpdateDimensions(this);
-			StartCoroutine(TickSimulation_Coroutine());
+			SimulationPlaying = false;
 		}
 
 		private void Update() {
@@ -46,10 +60,14 @@ namespace Clouds.Simulation
 		}
 
 		private IEnumerator TickSimulation_Coroutine() {
-			while(true) {
+			while(_simulationPlaying) {
 				yield return new WaitForSeconds(_tickDuration);
-				_grid.Update();
+				TickSimulation();
 			}
+		}
+
+		public void TickSimulation() {
+			_grid.Update();
 		}
 
 		private Vector3Int CalculateGridDimesions() {
