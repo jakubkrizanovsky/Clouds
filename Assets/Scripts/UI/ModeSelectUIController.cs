@@ -17,6 +17,12 @@ namespace ArenaVR
 		[SerializeField]
 		private GameObject _worleyNoiseUI;
 
+		[SerializeField]
+		private CloudsRendererFeature _simulationRendererFeature;
+		
+		[SerializeField]
+		private CloudsRendererFeature _worleyNoiseRendererFeature;
+
 		private void OnEnable() {
 			_simulationButton.onClick.AddListener(SwitchToSimulationMode);
 			_worleyNoiseButton.onClick.AddListener(SwitchToWorleyNoiseMode);
@@ -32,6 +38,9 @@ namespace ArenaVR
 		}
 
 		private void SwitchToSimulationMode() {
+			_simulationRendererFeature.SetActive(true);
+			_worleyNoiseRendererFeature.SetActive(false);
+
 			_simulationButton.interactable = false;
 			_worleyNoiseButton.interactable = true;
 
@@ -40,6 +49,9 @@ namespace ArenaVR
 		}
 
 		private void SwitchToWorleyNoiseMode() {
+			_worleyNoiseRendererFeature.SetActive(true);
+			_simulationRendererFeature.SetActive(false);
+
 			_worleyNoiseButton.interactable = false;
 			_simulationButton.interactable = true;
 

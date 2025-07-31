@@ -21,8 +21,8 @@ namespace Clouds.Simulation
 		[SerializeField]
 		private float _extProb = 0.01f;
 
-		[SerializeField]
-		private ACloudRenderer _renderer;
+		[field: SerializeField]
+		public ACloudRenderer Renderer {get; set;}
 
 		[SerializeField]
 		private bool _drawGrid = false;
@@ -45,16 +45,16 @@ namespace Clouds.Simulation
 
 		public void ResetSimulation() {
 			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb, _extProb);
-			_renderer.UpdateDimensions(this);
+			Renderer.UpdateDimensions(this);
 			SimulationPlaying = false;
 		}
 
 		private void Update() {
-			if(_renderer != null) {
-				_renderer.Render(_grid, _gridScale);
+			if(Renderer != null) {
+				Renderer.Render(_grid, _gridScale);
 				
 #if UNITY_EDITOR
-				_renderer.UpdateDimensions(this);
+				Renderer.UpdateDimensions(this);
 #endif
 			}
 		}
