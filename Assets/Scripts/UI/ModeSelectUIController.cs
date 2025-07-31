@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArenaVR
+namespace Clouds.UI
 {
 	public class ModeSelectUIController : MonoBehaviour
 	{

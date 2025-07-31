@@ -9,44 +9,17 @@ namespace Clouds.Simulation
     	[SerializeField]
 		private float _gridScale;
 
-		[SerializeField]
-		private float _tickDuration = 1f;
-
-		[SerializeField]
-		private float _initHumProb = 0.5f;
-
-		[SerializeField]
-		private float _initActProb = 0.5f;
-		
-		[SerializeField]
-		private float _extProb = 0.01f;
-
 		[field: SerializeField]
 		public ACloudRenderer Renderer {get; set;}
 
 		[SerializeField]
 		private bool _drawGrid = false;
 
-		private bool _simulationPlaying;
-		public bool SimulationPlaying {get => _simulationPlaying; set {
-			if(_simulationPlaying != value) {
-				_simulationPlaying = value;
-				if(_simulationPlaying) {
-					StartCoroutine(TickSimulation_Coroutine());
-				}
-			}
-		}}
-
 		private CloudGrid _grid;
 
-		private void Start() {
-			ResetSimulation();
-		}
-
-		public void ResetSimulation() {
-			_grid = new CloudGrid(CalculateGridDimesions(), _initHumProb, _initActProb, _extProb);
-			Renderer.UpdateDimensions(this);
-			SimulationPlaying = false;
+		public CloudGrid RecreateGrid() {
+			_grid = new CloudGrid(CalculateGridDimesions());
+			return _grid;
 		}
 
 		private void Update() {
@@ -57,17 +30,6 @@ namespace Clouds.Simulation
 				Renderer.UpdateDimensions(this);
 #endif
 			}
-		}
-
-		private IEnumerator TickSimulation_Coroutine() {
-			while(_simulationPlaying) {
-				yield return new WaitForSeconds(_tickDuration);
-				TickSimulation();
-			}
-		}
-
-		public void TickSimulation() {
-			_grid.Update();
 		}
 
 		private Vector3Int CalculateGridDimesions() {

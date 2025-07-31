@@ -16,7 +16,7 @@ namespace Clouds.UI.Simulation
 		private Button _resetButton;
 
 		[SerializeField]
-		private CloudBox _cloudBox;
+		private CloudSimulation _cloudSimulation;
 
 
 		private void OnEnable() {
@@ -31,16 +31,16 @@ namespace Clouds.UI.Simulation
 		}
 
 		private void PlayPause() {
-			_cloudBox.SimulationPlaying = !_cloudBox.SimulationPlaying;
-			_stepButton.interactable = !_cloudBox.SimulationPlaying;
+			_cloudSimulation.SimulationPlaying = !_cloudSimulation.SimulationPlaying;
+			_stepButton.interactable = !_cloudSimulation.SimulationPlaying;
 		}
 
 		private void StepSimulation() {
-			_cloudBox.TickSimulation();
+			_cloudSimulation.TickSimulation();
 		}
 
 		private void ResetSimulation() {
-			_cloudBox.ResetSimulation();
+			_cloudSimulation.ResetSimulation();
 			_stepButton.interactable = true;
 		}
 	}

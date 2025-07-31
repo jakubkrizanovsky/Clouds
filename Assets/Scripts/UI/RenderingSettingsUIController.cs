@@ -3,7 +3,7 @@ using Clouds.Simulation;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArenaVR.UI
+namespace Clouds.UI.Simulation
 {
 	public class RenderingSettingsUIController : MonoBehaviour
 	{

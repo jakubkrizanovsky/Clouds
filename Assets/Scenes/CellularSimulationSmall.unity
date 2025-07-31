@@ -1961,10 +1961,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridScale: 2
-  _tickDuration: 0.1
-  _initHumProb: 0.2
-  _initActProb: 0.1
-  _extProb: 0
   <Renderer>k__BackingField: {fileID: 322415634}
   _drawGrid: 0
 --- !u!4 &663930594
@@ -3578,6 +3574,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256208332}
   m_CullTransparentMesh: 1
+--- !u!1 &1283859994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1283859996}
+  - component: {fileID: 1283859995}
+  m_Layer: 0
+  m_Name: CloudSimulation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1283859995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283859994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8dabd749892e4edd88d2b1a9f86f641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cloudBox: {fileID: 663930593}
+  _tickDuration: 1
+  _initHumProb: 0.5
+  _initActProb: 0.1
+  _extProb: 0
+--- !u!4 &1283859996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283859994}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607266464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,7 +3964,7 @@ MonoBehaviour:
   _playPauseButton: {fileID: 560372001}
   _stepButton: {fileID: 2084278521}
   _resetButton: {fileID: 343925319}
-  _cloudBox: {fileID: 663930593}
+  _cloudSimulation: {fileID: 1283859995}
 --- !u!1 &1849979274
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,6 +4450,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 663930594}
+  - {fileID: 1283859996}
   - {fileID: 1738826124}
   - {fileID: 2006739523}
   - {fileID: 72051377}
