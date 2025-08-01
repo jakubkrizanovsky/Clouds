@@ -10,6 +10,12 @@ namespace Clouds.UI.Simulation
 		private Button _playPauseButton;
 
 		[SerializeField]
+		private Image _playIcon;
+
+		[SerializeField]
+		private Image _pauseIcon;
+
+		[SerializeField]
 		private Button _stepButton;
 
 		[SerializeField]
@@ -27,12 +33,14 @@ namespace Clouds.UI.Simulation
 
 		private void OnDisable() {
 			_playPauseButton.onClick.RemoveListener(PlayPause);
+			_stepButton.onClick.RemoveListener(StepSimulation);
 			_resetButton.onClick.RemoveListener(ResetSimulation);
 		}
 
 		private void PlayPause() {
 			_cloudSimulation.SimulationPlaying = !_cloudSimulation.SimulationPlaying;
 			_stepButton.interactable = !_cloudSimulation.SimulationPlaying;
+			RefreshPlayPauseIcon();
 		}
 
 		private void StepSimulation() {
@@ -42,6 +50,12 @@ namespace Clouds.UI.Simulation
 		private void ResetSimulation() {
 			_cloudSimulation.ResetSimulation();
 			_stepButton.interactable = true;
+			RefreshPlayPauseIcon();
+		}
+
+		private void RefreshPlayPauseIcon() {
+			_playIcon.gameObject.SetActive(!_cloudSimulation.SimulationPlaying);
+			_pauseIcon.gameObject.SetActive(_cloudSimulation.SimulationPlaying);
 		}
 	}
 }
