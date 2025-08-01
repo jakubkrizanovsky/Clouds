@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Clouds.UI.Simulation
+namespace Clouds.UI
 {
 	public class SimulationControlsUIController : MonoBehaviour
 	{

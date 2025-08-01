@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Clouds.UI.Simulation
+namespace Clouds.UI
 {
 	public class RenderingSettingsUIController : MonoBehaviour
 	{
@@ -21,6 +21,19 @@ namespace Clouds.UI.Simulation
 
 		[SerializeField]
 		private GameObject _cubesUI;
+
+		[Header("Raymarching UI")]
+		[SerializeField]
+		private Slider _stepsSlider;
+
+		[SerializeField]
+		private TextMeshProUGUI _stepsValueLabel;
+
+		[SerializeField]
+		private Slider _lightStepsSlider;
+
+		[SerializeField]
+		private TextMeshProUGUI _lightStepsValueLabel;
 
 		[Header("Cubes UI")]
 		[SerializeField]
@@ -43,16 +56,22 @@ namespace Clouds.UI.Simulation
 			_raymarchingButton.onClick.AddListener(SwitchToRaymarchingMode);
 			_cubesButton.onClick.AddListener(SwitchToCubesMode);
 			_renderTypeDropdown.onValueChanged.AddListener(SwitchRenderType);
+			_stepsSlider.onValueChanged.AddListener(ChangeStepCount);
+			_lightStepsSlider.onValueChanged.AddListener(ChangeLightStepCount);
 		}
 
         private void OnDisable() {
 			_raymarchingButton.onClick.RemoveListener(SwitchToRaymarchingMode);
 			_cubesButton.onClick.RemoveListener(SwitchToCubesMode);
 			_renderTypeDropdown.onValueChanged.RemoveListener(SwitchRenderType);
+			_stepsSlider.onValueChanged.RemoveListener(ChangeStepCount);
+			_lightStepsSlider.onValueChanged.RemoveListener(ChangeLightStepCount);
 		}
 
 		private void Start() {
 			SwitchToRaymarchingMode();
+			ChangeStepCount(_stepsSlider.value);
+			ChangeLightStepCount(_lightStepsSlider.value);
 		}
 
 		private void SwitchToRaymarchingMode() {
@@ -76,6 +95,16 @@ namespace Clouds.UI.Simulation
 			_cubesUI.SetActive(true);
 			_raymarchingUI.SetActive(false);
 		}
+
+		private void ChangeStepCount(float value) {
+            _cloudsRendererFeature.MaterialInstance.SetInteger("_NumSteps", (int) value);
+			_stepsValueLabel.text = value.ToString();
+        }
+
+		private void ChangeLightStepCount(float value) {
+            _cloudsRendererFeature.MaterialInstance.SetInteger("_NumLightSteps", (int) value);
+			_lightStepsValueLabel.text = value.ToString();
+        }
 
         private void SwitchRenderType(int value) {
             string typeName = _renderTypeDropdown.options[value].text;
