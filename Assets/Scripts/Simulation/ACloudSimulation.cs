@@ -3,13 +3,10 @@ using UnityEngine;
 
 namespace Clouds.Simulation
 {
-	public abstract class ACloudSimulation : MonoBehaviour
+	public abstract class ACloudSimulation : MonoBehaviour, ICloudSimulation
 	{
 		[SerializeField]
 		private CloudBox _cloudBox;
-
-		[SerializeField]
-		private float _tickDuration = 1f;
 
 		[SerializeField]
 		private float _initHumProb = 0.5f;
@@ -17,9 +14,6 @@ namespace Clouds.Simulation
 		[SerializeField]
 		private float _initActProb = 0.5f;
 
-		protected CloudGrid CloudGrid;
-
-		private bool _simulationPlaying;
 		public bool SimulationPlaying {
 			get => _simulationPlaying; 
 			set {
@@ -31,6 +25,11 @@ namespace Clouds.Simulation
 				}
 			}
 		}
+		public float TickDuration {get; set;} = 1f;
+
+		protected CloudGrid CloudGrid;
+
+		private bool _simulationPlaying;
 
 		private void Start() {
 			ResetSimulation();
@@ -45,7 +44,7 @@ namespace Clouds.Simulation
 		private IEnumerator TickSimulation_Coroutine() {
 			while(_simulationPlaying) {
 				TickSimulation();
-				yield return new WaitForSeconds(_tickDuration);
+				yield return new WaitForSeconds(TickDuration);
 			}
 		}
 

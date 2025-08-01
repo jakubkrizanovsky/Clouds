@@ -1,4 +1,6 @@
+using System;
 using Clouds.Simulation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,7 @@ namespace Clouds.UI.Simulation
 {
 	public class SimulationControlsUIController : MonoBehaviour
 	{
+		[Header("UI References")]
 		[SerializeField]
 		private Button _playPauseButton;
 
@@ -22,6 +25,14 @@ namespace Clouds.UI.Simulation
 		private Button _resetButton;
 
 		[SerializeField]
+		private Slider _simulationSpeedSlider;
+
+		[SerializeField]
+		private TextMeshProUGUI _simulationSpeedLabel;
+
+
+		[Header("Simulation References")]
+		[SerializeField]
 		private CloudSimulationSelector _cloudSimulation;
 
 
@@ -29,12 +40,18 @@ namespace Clouds.UI.Simulation
 			_playPauseButton.onClick.AddListener(PlayPause);
 			_stepButton.onClick.AddListener(StepSimulation);
 			_resetButton.onClick.AddListener(ResetSimulation);
+			_simulationSpeedSlider.onValueChanged.AddListener(ChangeSimulationSpeed);
 		}
 
-		private void OnDisable() {
+        private void OnDisable() {
 			_playPauseButton.onClick.RemoveListener(PlayPause);
 			_stepButton.onClick.RemoveListener(StepSimulation);
 			_resetButton.onClick.RemoveListener(ResetSimulation);
+			_simulationSpeedSlider.onValueChanged.RemoveListener(ChangeSimulationSpeed);
+		}
+
+		private void Awake() {
+			ChangeSimulationSpeed(_simulationSpeedSlider.value);
 		}
 
 		private void PlayPause() {
@@ -57,5 +74,10 @@ namespace Clouds.UI.Simulation
 			_playIcon.gameObject.SetActive(!_cloudSimulation.SimulationPlaying);
 			_pauseIcon.gameObject.SetActive(_cloudSimulation.SimulationPlaying);
 		}
+
+		private void ChangeSimulationSpeed(float value) {
+			_cloudSimulation.TickDuration = 1f / value;
+            _simulationSpeedLabel.text = value.ToString();
+        }
 	}
 }

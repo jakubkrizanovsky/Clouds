@@ -17,8 +17,15 @@ namespace Clouds.Simulation
 			get => CurrentSimulation.SimulationPlaying;
 			set => CurrentSimulation.SimulationPlaying = value; 
 		}
+        public float TickDuration {
+			get => CurrentSimulation.TickDuration;
+			set {
+				DefaultCloudSimulation.TickDuration = value;
+				CustomCloudSimulation.TickDuration = value;
+			}
+		}
 
-		private void Awake() {
+        private void Awake() {
 			CurrentSimulation = CustomCloudSimulation;
 		}
 
