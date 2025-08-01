@@ -8,12 +8,6 @@ namespace Clouds.Simulation
 		[SerializeField]
 		private CloudBox _cloudBox;
 
-		[SerializeField]
-		private float _initHumProb = 0.5f;
-
-		[SerializeField]
-		private float _initActProb = 0.5f;
-
 		public bool SimulationPlaying {
 			get => _simulationPlaying; 
 			set {
@@ -52,17 +46,7 @@ namespace Clouds.Simulation
 			CloudGrid.UpdateCells(UpdateCell);
 		}
 
-		private CloudCell CreateCell() {
-			bool hum = UnityEngine.Random.Range(0f, 1f) < _initHumProb;
-			CloudCell cell = new(
-				hum,
-				act: hum && UnityEngine.Random.Range(0f, 1f) < _initActProb,
-				cld: false,
-				ext: false
-			);
-
-			return cell;
-		}
+		public abstract CloudCell CreateCell();
 
 		public abstract CloudCell UpdateCell(CloudCell oldCell, int x, int y, int z);
 	}

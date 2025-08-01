@@ -4,7 +4,6 @@ namespace Clouds.Simulation
 	{
 		public bool SimulationPlaying {get; set;}
 		public float TickDuration {get; set;}
-		public CloudCell UpdateCell(CloudCell oldCell, int x, int y, int z);
 		public void TickSimulation();
 		public void ResetSimulation();
 	}

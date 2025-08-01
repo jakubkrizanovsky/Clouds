@@ -28,9 +28,6 @@ namespace Clouds.Simulation
 			CurrentSimulation = DefaultCloudSimulation;
 		}
 
-        public CloudCell UpdateCell(CloudCell oldCell, int x, int y, int z)
-			=> CurrentSimulation.UpdateCell(oldCell, x, y, z);
-
         public void TickSimulation()
         	=> CurrentSimulation.TickSimulation();
 
