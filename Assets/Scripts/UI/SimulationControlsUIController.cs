@@ -22,7 +22,7 @@ namespace Clouds.UI.Simulation
 		private Button _resetButton;
 
 		[SerializeField]
-		private CloudSimulation _cloudSimulation;
+		private CloudSimulationSelector _cloudSimulation;
 
 
 		private void OnEnable() {

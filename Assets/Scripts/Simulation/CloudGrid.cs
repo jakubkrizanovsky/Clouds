@@ -55,5 +55,12 @@ namespace Clouds.Simulation
 
 			return _cells[x, y, z].Ext;
 		}
+
+		public bool GetHumInBounds(int x, int y, int z) {
+			if(x < 0 || x >= Dimensions.x || y < 0 || y >= Dimensions.y || z < 0 || z >= Dimensions.z)
+				return false;
+
+			return _cells[x, y, z].Hum;
+		}
 	}
 }

@@ -5,12 +5,11 @@ namespace Clouds.Rendering
 {
     public class SimpleCloudRenderer : ACloudRenderer
     {
-		enum RenderType {
+		public enum RenderType {
 			Cld, Hum, Act, Ext
 		}
 
-		[SerializeField]
-		private RenderType _renderType;
+		public RenderType SelectedRenderType {get; set;}
 
 		[SerializeField]
 		private Material _material;
@@ -45,7 +44,7 @@ namespace Clouds.Rendering
 		}
 
 		private bool ShouldDraw(CloudCell cell) {
-            return _renderType switch {
+            return SelectedRenderType switch {
                 RenderType.Cld => cell.Cld,
                 RenderType.Hum => cell.Hum,
                 RenderType.Act => cell.Act,

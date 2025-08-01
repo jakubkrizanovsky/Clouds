@@ -1,5 +1,7 @@
+using System;
 using Clouds.Rendering;
 using Clouds.Simulation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,7 @@ namespace Clouds.UI.Simulation
 {
 	public class RenderingSettingsUIController : MonoBehaviour
 	{
+		[Header("UI References")]
 		[SerializeField]
 		private Button _raymarchingButton;
 
@@ -19,6 +22,11 @@ namespace Clouds.UI.Simulation
 		[SerializeField]
 		private GameObject _cubesUI;
 
+		[Header("Cubes UI")]
+		[SerializeField]
+		private TMP_Dropdown _renderTypeDropdown;
+
+		[Header("Simulation References")]
 		[SerializeField]
 		private RaymarchingCloudRenderer _raymarchingCloudRenderer;
 		
@@ -34,11 +42,13 @@ namespace Clouds.UI.Simulation
 		private void OnEnable() {
 			_raymarchingButton.onClick.AddListener(SwitchToRaymarchingMode);
 			_cubesButton.onClick.AddListener(SwitchToCubesMode);
+			_renderTypeDropdown.onValueChanged.AddListener(SwitchRenderType);
 		}
 
-		private void OnDisable() {
+        private void OnDisable() {
 			_raymarchingButton.onClick.RemoveListener(SwitchToRaymarchingMode);
 			_cubesButton.onClick.RemoveListener(SwitchToCubesMode);
+			_renderTypeDropdown.onValueChanged.RemoveListener(SwitchRenderType);
 		}
 
 		private void Start() {
@@ -66,5 +76,12 @@ namespace Clouds.UI.Simulation
 			_cubesUI.SetActive(true);
 			_raymarchingUI.SetActive(false);
 		}
+
+        private void SwitchRenderType(int value) {
+            string typeName = _renderTypeDropdown.options[value].text;
+			SimpleCloudRenderer.RenderType type = (SimpleCloudRenderer.RenderType) Enum.Parse(
+					typeof(SimpleCloudRenderer.RenderType), typeName);
+			_simpleCloudRenderer.SelectedRenderType = type;
+        }
 	}
 }
