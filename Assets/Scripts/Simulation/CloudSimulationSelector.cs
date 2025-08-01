@@ -10,8 +10,7 @@ namespace Clouds.Simulation
 		[field: SerializeField]
 		public CustomCloudSimulation CustomCloudSimulation {get; private set;}
 
-		[field: SerializeField]
-        private ACloudSimulation CurrentSimulation {get; set;}
+        public ACloudSimulation CurrentSimulation {get; set;}
 
         public bool SimulationPlaying {
 			get => CurrentSimulation.SimulationPlaying;
@@ -26,7 +25,7 @@ namespace Clouds.Simulation
 		}
 
         private void Awake() {
-			CurrentSimulation = CustomCloudSimulation;
+			CurrentSimulation = DefaultCloudSimulation;
 		}
 
         public CloudCell UpdateCell(CloudCell oldCell, int x, int y, int z)

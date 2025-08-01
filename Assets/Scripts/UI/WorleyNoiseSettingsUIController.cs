@@ -19,7 +19,7 @@ namespace Clouds.UI
 		private TextMeshProUGUI _lightStepsValueLabel;
 
 		[SerializeField]
-		private CloudsRendererFeature _worleyNoiseRenderFeature;
+		private CloudsRendererFeature _worleyNoiseRendererFeature;
 
 		private void OnEnable() {
 			_stepsSlider.onValueChanged.AddListener(ChangeStepCount);
@@ -37,12 +37,12 @@ namespace Clouds.UI
 		}
 
 		private void ChangeStepCount(float value) {
-            _worleyNoiseRenderFeature.MaterialInstance.SetInteger("_NumSteps", (int) value);
+            _worleyNoiseRendererFeature.MaterialInstance.SetInteger("_NumSteps", (int) value);
 			_stepsValueLabel.text = value.ToString();
         }
 
 		private void ChangeLightStepCount(float value) {
-            _worleyNoiseRenderFeature.MaterialInstance.SetInteger("_NumLightSteps", (int) value);
+            _worleyNoiseRendererFeature.MaterialInstance.SetInteger("_NumLightSteps", (int) value);
 			_lightStepsValueLabel.text = value.ToString();
         }
 	}

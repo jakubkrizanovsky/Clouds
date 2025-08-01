@@ -64,7 +64,7 @@ namespace Clouds.UI
 			_cloudSimulation.TickSimulation();
 		}
 
-		private void ResetSimulation() {
+		public void ResetSimulation() {
 			_cloudSimulation.ResetSimulation();
 			_stepButton.interactable = true;
 			RefreshPlayPauseIcon();
