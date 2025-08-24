@@ -83,6 +83,7 @@ namespace Clouds.UI
 
 			_raymarchingUI.SetActive(true);
 			_cubesUI.SetActive(false);
+			_raymarchingCloudRenderer.UpdateDimensions(_cloudBox);
 		}
 
 		private void SwitchToCubesMode() {
@@ -94,6 +95,7 @@ namespace Clouds.UI
 
 			_cubesUI.SetActive(true);
 			_raymarchingUI.SetActive(false);
+			_simpleCloudRenderer.UpdateDimensions(_cloudBox);
 		}
 
 		private void ChangeStepCount(float value) {
