@@ -6,8 +6,8 @@ namespace Clouds.Simulation
 {
 	public class CloudBox : MonoBehaviour
 	{
-    	[SerializeField]
-		private float _gridScale;
+    	[field: SerializeField]
+		public float GridScale {get; set;}
 
 		[field: SerializeField]
 		public ACloudRenderer Renderer {get; set;}
@@ -19,21 +19,18 @@ namespace Clouds.Simulation
 
 		public CloudGrid RecreateGrid() {
 			_grid = new CloudGrid(CalculateGridDimesions());
+			Renderer.UpdateDimensions(this);
 			return _grid;
 		}
 
 		private void Update() {
 			if(Renderer != null) {
-				Renderer.Render(_grid, _gridScale);
-				
-#if UNITY_EDITOR
-				Renderer.UpdateDimensions(this);
-#endif
+				Renderer.Render(_grid, GridScale);
 			}
 		}
 
 		private Vector3Int CalculateGridDimesions() {
-			Vector3 floatDimensions = transform.localScale / _gridScale;
+			Vector3 floatDimensions = transform.localScale / GridScale;
 			return new Vector3Int(
 				(int) floatDimensions.x, 
 				(int) floatDimensions.y,
@@ -53,7 +50,7 @@ namespace Clouds.Simulation
 				for(int y = 0; y < dimensions.y; y++) {
 					for(int z = 0; z < dimensions.z; z++) {
 						Vector3 cellPosition = CalculateCellCenter(x, y, z, dimensions);
-						Gizmos.DrawWireCube(cellPosition, _gridScale * Vector3.one);
+						Gizmos.DrawWireCube(cellPosition, GridScale * Vector3.one);
 					}
 				}
 			}
@@ -63,8 +60,8 @@ namespace Clouds.Simulation
 		}
 
 		private Vector3 CalculateCellCenter(int x, int y, int z, Vector3Int gridDimensions) {
-			return transform.position + _gridScale * new Vector3(x, y, z) 
-					- 0.5f * _gridScale * (Vector3)gridDimensions + 0.5f * _gridScale * Vector3.one;
+			return transform.position + GridScale * new Vector3(x, y, z) 
+					- 0.5f * GridScale * (Vector3)gridDimensions + 0.5f * GridScale * Vector3.one;
 		}
 	}
 }
