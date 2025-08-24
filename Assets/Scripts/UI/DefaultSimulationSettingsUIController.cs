@@ -26,18 +26,23 @@ namespace Clouds.UI
 		private TextMeshProUGUI _extValueLabel;
 
 		[SerializeField]
+		private Toggle _useWindEffectToggle;
+
+		[SerializeField]
 		private DefaultCloudSimulation _defaultCloudSimulation;
 
 		private void OnEnable() {
 			_initHumSlider.onValueChanged.AddListener(ChangeInitHumProb);
 			_initActSlider.onValueChanged.AddListener(ChangeInitActProb);
 			_extSlider.onValueChanged.AddListener(ChangeExtProb);
+			_useWindEffectToggle.onValueChanged.AddListener(ToggleWindEffect);
 		}
 
         private void OnDisable() {
 			_initHumSlider.onValueChanged.RemoveListener(ChangeInitHumProb);
 			_initActSlider.onValueChanged.RemoveListener(ChangeInitActProb);
 			_extSlider.onValueChanged.RemoveListener(ChangeExtProb);
+			_useWindEffectToggle.onValueChanged.RemoveListener(ToggleWindEffect);
 		}
 
 		private void Start() {
@@ -60,5 +65,9 @@ namespace Clouds.UI
 			_defaultCloudSimulation.ExtProb = value;
 			_extValueLabel.text = value.ToString("0.00");
         }
+
+		private void ToggleWindEffect(bool value) {
+			_defaultCloudSimulation.UseWindEffect = value;
+		}
 	}
 }

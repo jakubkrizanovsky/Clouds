@@ -5,6 +5,9 @@ namespace Clouds.Simulation
 {
 	public abstract class ACloudSimulation : MonoBehaviour, ICloudSimulation
 	{
+		[field: SerializeField]
+		public bool UseWindEffect {get; set;} = false;
+
 		[SerializeField]
 		private CloudBox _cloudBox;
 
@@ -49,5 +52,33 @@ namespace Clouds.Simulation
 		public abstract CloudCell CreateCell();
 
 		public abstract CloudCell UpdateCell(CloudCell oldCell, int x, int y, int z);
+
+		protected bool ActFunction(int x, int y, int z) {
+			return UseWindEffect ? ActFunctionWind(x, y, z) : ActFunctionDefault(x, y, z);
+		}
+
+		private bool ActFunctionDefault(int x, int y, int z) {
+			return CloudGrid.GetActInBounds(x + 1, y, z) || CloudGrid.GetActInBounds(x - 1, y, z) 
+					|| CloudGrid.GetActInBounds(x, y + 1, z) || CloudGrid.GetActInBounds(x, y - 1, z)
+					|| CloudGrid.GetActInBounds(x, y, z + 1) || CloudGrid.GetActInBounds(x, y, z - 1) 
+					|| CloudGrid.GetActInBounds(x + 2, y, z) || CloudGrid.GetActInBounds(x - 2, y, z)
+					|| CloudGrid.GetActInBounds(x, y + 2, z) || CloudGrid.GetActInBounds(x, y - 2, z)
+					|| CloudGrid.GetActInBounds(x, y, z - 2);
+		}
+
+		private bool ActFunctionWind(int x, int y, int z) {
+			return CloudGrid.GetActInBounds(x + 1, y, z) || CloudGrid.GetActInBounds(x - 1, y, z) 
+					|| CloudGrid.GetActInBounds(x, y + 1, z) || CloudGrid.GetActInBounds(x, y - 1, z)
+					|| CloudGrid.GetActInBounds(x, y, z - 1);
+		}
+
+		protected bool ExtFunction(int x, int y, int z) {
+			return CloudGrid.GetExtInBounds(x + 1, y, z) || CloudGrid.GetExtInBounds(x - 1, y, z) 
+					|| CloudGrid.GetExtInBounds(x, y + 1, z) || CloudGrid.GetExtInBounds(x, y - 1, z)
+					|| CloudGrid.GetExtInBounds(x, y, z + 1) || CloudGrid.GetExtInBounds(x, y, z - 1) 
+					|| CloudGrid.GetExtInBounds(x + 2, y, z) || CloudGrid.GetExtInBounds(x - 2, y, z)
+					|| CloudGrid.GetExtInBounds(x, y + 2, z) || CloudGrid.GetExtInBounds(x, y - 2, z)
+					|| CloudGrid.GetExtInBounds(x, y, z - 2);
+		}
 	}
 }

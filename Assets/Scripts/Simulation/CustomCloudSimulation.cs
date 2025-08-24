@@ -35,30 +35,12 @@ namespace Clouds.Simulation
 			);
         }
 
-		private bool ActFunction(int x, int y, int z) {
-			return CloudGrid.GetActInBounds(x + 1, y, z) || CloudGrid.GetActInBounds(x - 1, y, z) 
-					|| CloudGrid.GetActInBounds(x, y + 1, z) || CloudGrid.GetActInBounds(x, y - 1, z)
-					|| CloudGrid.GetActInBounds(x, y, z + 1) || CloudGrid.GetActInBounds(x, y, z - 1) 
-					|| CloudGrid.GetActInBounds(x + 2, y, z) || CloudGrid.GetActInBounds(x - 2, y, z)
-					|| CloudGrid.GetActInBounds(x, y + 2, z) || CloudGrid.GetActInBounds(x, y - 2, z)
-					|| CloudGrid.GetActInBounds(x, y, z - 2);
-		}
-
-		private bool ExtFunction(int x, int y, int z) {
-			return CloudGrid.GetExtInBounds(x + 1, y, z) || CloudGrid.GetExtInBounds(x - 1, y, z) 
-					|| CloudGrid.GetExtInBounds(x, y + 1, z) || CloudGrid.GetExtInBounds(x, y - 1, z)
-					|| CloudGrid.GetExtInBounds(x, y, z + 1) || CloudGrid.GetExtInBounds(x, y, z - 1) 
-					|| CloudGrid.GetExtInBounds(x + 2, y, z) || CloudGrid.GetExtInBounds(x - 2, y, z)
-					|| CloudGrid.GetExtInBounds(x, y + 2, z) || CloudGrid.GetExtInBounds(x, y - 2, z)
-					|| CloudGrid.GetExtInBounds(x, y, z - 2);
-		}
-
 		private bool HumFunction(int x, int y, int z) {
 			return Random.Range(0f, 1f) < HumProb;
-			if(y == 0) {
+			if(x == 0) {
 				return Random.Range(0f, 1f) < HumProb;
 			} else {
-				return CloudGrid.GetHumInBounds(x, y - 1, z) && Random.Range(0f, 1f) < HumProb;
+				return CloudGrid.GetHumInBounds(x - 1, y, z) && Random.Range(0f, 1f) < HumProb;
 			}
 		}
 	}
