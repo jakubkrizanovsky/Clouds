@@ -16,8 +16,8 @@ namespace Clouds.Rendering
             if(_texture == null) {                
                 _texture = new Texture3D(cloudGrid.Dimensions.x, cloudGrid.Dimensions.y, 
                         cloudGrid.Dimensions.z, TextureFormat.R8, false);
-                _oldTexture = _cloudsRendererFeature.MaterialInstance.GetTexture("_NoiseTexture") as Texture3D;
-                _cloudsRendererFeature.MaterialInstance.SetTexture("_NoiseTexture", _texture);
+                _oldTexture = _cloudsRendererFeature.Material.GetTexture("_NoiseTexture") as Texture3D;
+                _cloudsRendererFeature.Material.SetTexture("_NoiseTexture", _texture);
             }
             
             for(int i = 0; i < cloudGrid.Dimensions.x; i++) {
@@ -34,12 +34,12 @@ namespace Clouds.Rendering
             Vector3 boundsMin = cloudBox.transform.position - 0.5f * cloudBox.transform.localScale;
             Vector3 boundsMax = cloudBox.transform.position + 0.5f * cloudBox.transform.localScale;
             
-            _cloudsRendererFeature.MaterialInstance.SetVector("_BoundsMin", boundsMin);
-            _cloudsRendererFeature.MaterialInstance.SetVector("_BoundsMax", boundsMax);
+            _cloudsRendererFeature.Material.SetVector("_BoundsMin", boundsMin);
+            _cloudsRendererFeature.Material.SetVector("_BoundsMax", boundsMax);
         }
 
         private void OnDisable() {
-            _cloudsRendererFeature.MaterialInstance.SetTexture("_NoiseTexture", _oldTexture);
+            _cloudsRendererFeature.Material.SetTexture("_NoiseTexture", _oldTexture);
         }
     }
 }

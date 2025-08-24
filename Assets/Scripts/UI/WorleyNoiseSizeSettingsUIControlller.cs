@@ -22,8 +22,8 @@ namespace Clouds.UI
             Vector3 boundsMin = CloudBox.transform.position - 0.5f * CloudBox.transform.localScale;
             Vector3 boundsMax = CloudBox.transform.position + 0.5f * CloudBox.transform.localScale;
             
-            _worleyNoiseRendererFeature.MaterialInstance.SetVector("_BoundsMin", boundsMin);
-            _worleyNoiseRendererFeature.MaterialInstance.SetVector("_BoundsMax", boundsMax);
+            _worleyNoiseRendererFeature.Material.SetVector("_BoundsMin", boundsMin);
+            _worleyNoiseRendererFeature.Material.SetVector("_BoundsMax", boundsMax);
         }
 	}
 }

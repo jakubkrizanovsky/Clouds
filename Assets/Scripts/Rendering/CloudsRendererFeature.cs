@@ -44,10 +44,8 @@ public class CloudsRendererFeature : ScriptableRendererFeature
     [SerializeField]
     private RenderPassEvent _renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
 
-    [SerializeField]
-    private Material _cloudsMaterial;
-    public Material MaterialInstance => _cloudsMaterial; //TODO
-    //public Material MaterialInstance {get; private set;}
+    [field: SerializeField]
+    public Material Material {get; private set;}
 
     private CloudsRenderPass _scriptablePass;
 
@@ -56,19 +54,18 @@ public class CloudsRendererFeature : ScriptableRendererFeature
     {
         _scriptablePass = new();
         _scriptablePass.renderPassEvent = _renderPassEvent;
-        //MaterialInstance = new Material(_cloudsMaterial);
     }
 
     // Here you can inject one or multiple render passes in the renderer.
     // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        if(_cloudsMaterial == null) {
+        if(Material == null) {
             Debug.LogWarning("CloudsRendererFeature material is null and will be skipped.");
             return;
         }
 
-        _scriptablePass.Setup(_cloudsMaterial);
+        _scriptablePass.Setup(Material);
         renderer.EnqueuePass(_scriptablePass);
     }
 }

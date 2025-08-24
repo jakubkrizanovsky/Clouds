@@ -99,12 +99,12 @@ namespace Clouds.UI
 		}
 
 		private void ChangeStepCount(float value) {
-            _cloudsRendererFeature.MaterialInstance.SetInteger("_NumSteps", (int) value);
+            _cloudsRendererFeature.Material.SetInteger("_NumSteps", (int) value);
 			_stepsValueLabel.text = value.ToString();
         }
 
 		private void ChangeLightStepCount(float value) {
-            _cloudsRendererFeature.MaterialInstance.SetInteger("_NumLightSteps", (int) value);
+            _cloudsRendererFeature.Material.SetInteger("_NumLightSteps", (int) value);
 			_lightStepsValueLabel.text = value.ToString();
         }
 

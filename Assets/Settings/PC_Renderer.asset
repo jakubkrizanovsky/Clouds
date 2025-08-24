@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 0
   _renderPassEvent: 400
-  _cloudsMaterial: {fileID: 2100000, guid: 3722343c4a4b9424781a4b012ff43eaa, type: 2}
+  <Material>k__BackingField: {fileID: 2100000, guid: 3722343c4a4b9424781a4b012ff43eaa, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,4 +118,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   _renderPassEvent: 400
-  _cloudsMaterial: {fileID: 2100000, guid: 0bb51f79726294c429f7c49963eb6dc1, type: 2}
+  <Material>k__BackingField: {fileID: 2100000, guid: 0bb51f79726294c429f7c49963eb6dc1, type: 2}
